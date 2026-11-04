@@ -6,11 +6,28 @@
 <meta name="theme-color" content="#080d18">
 <title>FULLTOSS | FanCode</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#080d18;overflow:hidden}
-iframe{display:block;width:100%;height:100%;border:0;background:#080d18}
+:root{color-scheme:dark;--bg:#080d18;--panel:#101929;--line:#26364d;--red:#ff344d;--muted:#91a0b5}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:radial-gradient(ellipse at 50% -18%,#1b2a45 0,transparent 48%),var(--bg);color:#f6f8fc;font-family:Inter,Arial,sans-serif}
+body{min-height:100vh}
+.sitebar{height:68px;padding:0 clamp(16px,4vw,56px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12;background:#080d18dd;backdrop-filter:blur(16px);position:sticky;top:0;z-index:3}
+.brand{font-size:24px;font-weight:1000;letter-spacing:1.5px;color:#fff;text-decoration:none}.brand span{color:var(--red)}
+.status{display:flex;align-items:center;gap:9px;color:#aab7ca;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}
+.dot{width:8px;height:8px;border-radius:50%;background:#ff344d;box-shadow:0 0 12px #ff344d;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.45;box-shadow:0 0 3px #ff344d}}
+main{width:min(1440px,100%);margin:auto;padding:18px clamp(10px,2vw,28px) 26px}
+.frame{height:calc(100vh - 112px);min-height:600px;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:var(--panel);box-shadow:0 22px 65px #0008}
+iframe{display:block;width:100%;height:100%;border:0;background:var(--bg)}
+@media(max-width:600px){.sitebar{height:58px}.brand{font-size:21px}.frame{height:calc(100vh - 82px);min-height:520px;border-radius:11px}main{padding:10px 8px 14px}}
 </style>
 </head>
 <body>
+<header class="sitebar">
+<a class="brand" href="./">FULL<span>TOSS</span></a>
+<div class="status"><i class="dot"></i> FanCode Live Centre</div>
+</header>
+<main><section class="frame">
 <iframe src="https://fulltosslive.pages.dev/fancode.html" title="FULLTOSS FanCode Live" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</section></main>
 </body>
 </html>
