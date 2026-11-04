@@ -3,20 +3,46 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080d18">
-<title>FULLTOSS | Live Sports Arena</title>
-<link rel="stylesheet" href="css/fancode.css">
-<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17"></script>
+<meta name="theme-color" content="#070b14">
+<title>FULLTOSS FC | Live Sports Arena</title>
+<style>
+:root{color-scheme:dark;--bg:#070b14;--red:#ff3655;--line:#344762}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:#f6f8fc;font-family:Inter,system-ui,Arial,sans-serif}
+body{overflow-x:hidden;background:radial-gradient(ellipse at 50% -15%,#23385b 0,transparent 42%),radial-gradient(ellipse at 5% 42%,#17274666 0,transparent 35%),var(--bg)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.13;background-image:linear-gradient(#8da4c21a 1px,transparent 1px),linear-gradient(90deg,#8da4c21a 1px,transparent 1px);background-size:54px 54px;z-index:0}
+header{height:70px;padding:0 clamp(16px,5vw,76px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff13;background:#080e1be8;backdrop-filter:blur(18px);position:relative;z-index:2}
+.brand{font-size:25px;font-weight:1000;letter-spacing:1.8px;color:#fff;text-decoration:none}.brand span{color:var(--red)}
+.status{display:flex;align-items:center;gap:10px;color:#aebbd0;font-size:10px;font-weight:850;letter-spacing:1.5px;text-transform:uppercase}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 15px var(--red);animation:pulse 1.5s infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(.75)}}
+main{position:relative;z-index:1;width:min(1480px,100%);margin:auto;padding:25px clamp(10px,3vw,42px) 35px}
+.hero{position:relative;min-height:190px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:25px clamp(20px,4vw,54px);margin-bottom:20px;border:1px solid #7185a344;border-radius:22px;overflow:hidden;background:linear-gradient(112deg,#14243ded,#101a2bea 58%,#211827dd);box-shadow:0 22px 70px #0007,inset 0 1px #ffffff14}
+.hero:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 80% 50%,#ff365522,transparent 42%)}
+.eyebrow{color:#ff8294;font-size:10px;font-weight:950;letter-spacing:3px;text-transform:uppercase}
+h1{font-size:clamp(38px,6vw,68px);line-height:.98;letter-spacing:-3px;margin:13px 0 10px;font-weight:1000}
+h1 span{color:var(--red);text-shadow:0 0 35px #ff36554a}
+.hero p{margin:0;color:#9eacc1;font-size:13px}
+.arena{width:180px;height:145px;position:relative;flex:none;perspective:500px}
+.orb{position:absolute;width:105px;height:105px;right:30px;top:8px;border-radius:50%;background:radial-gradient(circle at 32% 25%,#ffb3bd 0,#ff536b 13%,#9d1d3b 48%,#25162d 76%);box-shadow:inset -15px -18px 28px #050711,0 0 35px #ff36554d,0 0 85px #ff365522;animation:float 5s ease-in-out infinite}
+.ring{position:absolute;width:175px;height:55px;right:-2px;top:43px;border:2px solid #ff6a7d99;border-radius:50%;transform:rotate(-23deg);box-shadow:0 0 18px #ff365533}
+.ring.two{width:155px;height:43px;right:7px;top:53px;border-color:#9ab9e566;transform:rotate(32deg)}
+@keyframes float{50%{transform:translateY(-10px) rotateY(18deg) rotateZ(8deg)}}
+.section-label{display:flex;justify-content:space-between;margin:0 4px 10px;color:#dce5f3;font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase}
+.frame{overflow:hidden;border:1px solid #53678277;border-radius:17px;background:#0b1321;box-shadow:0 25px 80px #0009,inset 0 1px #ffffff14}
+iframe{display:block;width:100%;height:calc(100vh - 285px);min-height:720px;border:0;background:#080d18}
+footer{text-align:center;padding:17px 5px 0;color:#65758e;font-size:10px;letter-spacing:1.2px}
+@media(max-width:700px){header{height:60px}.brand{font-size:21px}.status{font-size:9px;letter-spacing:1px}.hero{min-height:155px;padding:20px 16px;border-radius:16px}.arena{width:100px;height:105px;transform:scale(.72);transform-origin:center right;margin-left:-22px}h1{font-size:clamp(34px,9vw,48px);letter-spacing:-2px}.hero p{font-size:11px;max-width:220px}.frame{border-radius:12px}iframe{height:calc(100vh - 230px);min-height:650px}main{padding:15px 8px 24px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important}}
+</style>
 </head>
 <body>
-<header class="top"><a class="brand" href="./">FULL<span>TOSS</span></a><a class="tg" href="https://t.me/+Xpjp2RJEIoczMmZl">JOIN TELEGRAM ↗</a></header>
-<main class="wrap">
-<section class="intro hero3d"><div><div class="tag">✦ CRICKET • FOOTBALL • TENNIS</div><h1>LIVE <span>SPORTS</span></h1><p>Catch the action. Follow every match.</p></div><div class="orb-stage" aria-hidden="true"><div class="orbit"></div><div class="orbit second"></div><div class="orb"></div><div class="orb-base"></div></div></section>
-<nav class="tabs"><button class="tab active" data-tab="LIVE">🔴 LIVE NOW</button><button class="tab" data-tab="UPCOMING">📅 UPCOMING</button></nav>
-<div class="stats"><div class="stat"><b id="total">—</b> Matches</div><div class="stat"><b id="liveCount">—</b> Live</div><div class="stat"><b id="upCount">—</b> Upcoming</div></div>
-<section class="player" id="player"><div class="player-head"><h3 id="playerTitle">Now Playing</h3><button class="close" id="close">✕ Close</button></div><div class="screen" id="screen"></div><div class="player-meta" id="playerMeta"></div><div id="qualities" class="qualities"></div></section>
-<div class="filters" id="filters"></div><div class="section-head"><h2 id="sectionTitle">Live Matches</h2><span class="count" id="count"></span></div><div class="grid" id="matches"><div class="empty">Loading matches…</div></div>
-<footer class="foot">© FULLTOSS · THE HOME OF LIVE SPORTS</footer>
+<header><a class="brand" href="./">FULL<span>TOSS</span> FC</a><div class="status"><i class="dot"></i> Live Sports Arena</div></header>
+<main>
+<section class="hero"><div><div class="eyebrow">✦ CRICKET • FOOTBALL • TENNIS</div><h1>LIVE <span>SPORTS</span></h1><p>Every match. Every moment. All in one arena.</p></div><div class="arena" aria-hidden="true"><div class="ring"></div><div class="ring two"></div><div class="orb"></div></div></section>
+<div class="section-label"><span>Fancode live match centre</span><span>Official player page</span></div>
+<section class="frame"><iframe src="https://fulltosslive.pages.dev/fancode.html" title="FULLTOSS FanCode Live" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe></section>
+<footer>© FULLTOSS FC · THE HOME OF LIVE SPORTS</footer>
 </main>
-<script src="js/fancode.js" defer></script>
-</body></html>
+</body>
+</html>
