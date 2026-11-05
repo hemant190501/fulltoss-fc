@@ -41,7 +41,10 @@ footer{text-align:center;padding:17px 5px 0;color:#65758e;font-size:10px;letter-
 <main>
 <section class="hero"><div><div class="eyebrow">✦ CRICKET • FOOTBALL • TENNIS</div><h1>LIVE <span>SPORTS</span></h1><p>Every match. Every moment. All in one arena.</p></div><div class="arena" aria-hidden="true"><div class="ring"></div><div class="ring two"></div><div class="orb"></div></div></section>
 <div class="section-label"><span>Fancode live match centre</span><span>Official player page</span></div>
-<section class="frame"><iframe src="https://fulltosslive.pages.dev/fancode.html" title="FULLTOSS FanCode Live" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe></section>
+<section class="frame"><iframe id="matchFrame" src="https://fulltosslive.pages.dev/fancode.html" title="FULLTOSS FanCode Live" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe></section>
+<script>
+(()=>{const match=new URLSearchParams(location.search).get("match");const frame=document.getElementById("matchFrame");if(match)frame.src="https://fulltosslive.pages.dev/fancode.html?match="+encodeURIComponent(match);})();
+</script>
 <footer>© FULLTOSS FC · THE HOME OF LIVE SPORTS</footer>
 </main>
 </body>
