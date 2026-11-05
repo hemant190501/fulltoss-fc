@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080d18"><title>FULLTOSS Admin</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#080d18;color:#edf3ff;font:14px Inter,system-ui,Arial}main{width:min(950px,94%);margin:42px auto}.panel{background:#111b2b;border:1px solid #293b55;border-radius:18px;padding:22px;box-shadow:0 20px 60px #0007}h1{margin:0 0 8px;font-size:25px}p,.muted{color:#9aabc3;line-height:1.55}.brand{color:#ff405d;font-weight:900;letter-spacing:2px;margin-bottom:24px}input,textarea{width:100%;background:#080f1d;color:#eaf1ff;border:1px solid #344963;border-radius:9px;padding:12px;font:13px ui-monospace,monospace}textarea{min-height:430px;resize:vertical;margin:12px 0}button{background:#ff3655;color:white;border:0;border-radius:9px;padding:11px 17px;font-weight:800;cursor:pointer;margin:6px 7px 6px 0}button.secondary{background:#273a54}button:disabled{opacity:.5}.row{display:flex;gap:8px;flex-wrap:wrap}.hidden{display:none}.msg{margin:12px 0;color:#ff9aa9;min-height:20px}.hint{font-size:12px;color:#9aabc3}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+</style></head><body><main><div class="brand">FULLTOSS FC · CONTROL ROOM</div>
+<section id="login" class="panel"><h1>Admin Login</h1><p>Sign in to manage the match data stored in Cloudflare KV.</p><input id="password" type="password" placeholder="Admin password" autocomplete="current-password"><div class="row"><button id="loginBtn">LOGIN</button></div><div id="loginMsg" class="msg"></div></section>
+<section id="dashboard" class="panel hidden"><div class="top"><div><h1>Match Manager</h1><div class="muted" id="count">Loading…</div></div><button class="secondary" id="logout">LOG OUT</button></div>
+<p class="hint">Edit the JSON below. Keep the outer format as { "matches": [ ... ] }. Common fields: match_id, title, category, status (LIVE / UPCOMING), tournament, startTime, image, cnptv_cdn. Only enter stream URLs you are authorized to use.</p>
+<textarea id="data" spellcheck="false"></textarea><div class="row"><button id="reload" class="secondary">RELOAD FROM KV</button><button id="save">SAVE TO KV</button></div><div id="saveMsg" class="msg"></div></section>
+</main><script>
+const $=id=>document.getElementById(id);
+async function api(url,opts={}){const r=await fetch(url,{...opts,headers:{"Content-Type":"application/json",...(opts.headers||{})},cache:"no-store"});let d={};try{d=await r.json()}catch{}if(!r.ok)throw Error(d.error||"Request failed ("+r.status+")");return d}
+function showDash(){ $("login").classList.add("hidden");$("dashboard").classList.remove("hidden");load()}
+function showLogin(){ $("dashboard").classList.add("hidden");$("login").classList.remove("hidden")}
+async function load(){try{const d=await api("/api/matches");$("data").value=JSON.stringify(d,null,2);$("count").textContent=(d.matches||[]).length+" matches in KV";$("saveMsg").textContent=""}catch(e){$("saveMsg").textContent=e.message}}
+$("loginBtn").onclick=async()=>{try{await api("/api/admin/login",{method:"POST",body:JSON.stringify({password:$("password").value})});$("password").value="";$("loginMsg").textContent="";showDash()}catch(e){$("loginMsg").textContent=e.message}};
+$("password").addEventListener("keydown",e=>{if(e.key==="Enter")$("loginBtn").click()});
+$("reload").onclick=load;
+$("save").onclick=async()=>{try{const d=JSON.parse($("data").value);if(!Array.isArray(d.matches))throw Error("matches must be an array");const r=await api("/api/matches",{method:"PUT",body:JSON.stringify(d)});$("count").textContent=r.count+" matches saved in KV";$("saveMsg").textContent="Saved successfully."}catch(e){$("saveMsg").textContent=e.message}};
+$("logout").onclick=async()=>{await api("/api/admin/logout",{method:"POST"});showLogin()};
+api("/api/matches").then(()=>{}).catch(()=>{});
+</script></body></html>
